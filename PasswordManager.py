@@ -1,28 +1,23 @@
 import string
-
+import random
 class Password():
     def __init__(self,password=""):
         self.password = password
-        
-        
-    def checkStrength(self):
-        password = self.password
-        count = len(password)>=8
-        num = False
-        speca = False
-        cap = False
-        for char in password:
-            if char in string.ascii_uppercase:
-                cap = True
-            elif char in string.digits:
-                num = True
-            elif char in string.punctuation:
-                speca = True
-        if num and speca and cap and count:
-            return True
-        else:
-            return False
-        
+
     def __str__(self):
         return self.password
-                
+
+class passwordGen():
+    def passw():
+    #get ascii and length
+        lowerLetter = string.ascii_lowercase
+        upperLetter = string.ascii_uppercase
+        numbers = string.digits
+        symbolsCase = string.punctuation
+        length = 8
+        #add all together
+        all = lowerLetter + upperLetter + numbers+ symbolsCase
+        to = random.sample(all,length)
+        thePassword = "".join(to)
+        print(thePassword)
+
