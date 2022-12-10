@@ -20,4 +20,3 @@ class passwordGen():
         to = random.sample(all,length)
         thePassword = "".join(to)
         print(thePassword)
-

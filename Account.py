@@ -1,6 +1,6 @@
 class Account:
     
-    def __init__(self,accNam, username, password, category):
+    def __init__(self,category, accNam, username, password):
         self.username = username
         self.password = password
         self.accNam = accNam
@@ -8,10 +8,9 @@ class Account:
 
     def __str__(self):
         
-        string=f"""
-        {self.accNam}
-        username: {self.username}
-        password: {self.password}
-        category: {self.category}
-        """
+        string=f"""Category: {self.category}
+    Name: {self.accNam}
+    username: {self.username}
+    password: {self.password}
+"""
         return string

@@ -2,13 +2,16 @@
 from Account import Account
 from User import User
 import string
+import random
+
 
 # functions and variables
 ui = "0"
 tries = 0
+masterUserList = []
 masterAccountList = []
 
-# Check password requirement
+# Check password requirement - Sam
 def checkStrength(password):
     count = len(password)>=8
     num = False
@@ -28,7 +31,7 @@ def checkStrength(password):
         return False
 
 
-#login use def check strength if meet requirement         
+#login use def check strength if meet requirement - Jonah         
 def login():
     tries = False
     k = 0
@@ -47,10 +50,8 @@ def login():
                 print("login good")
                 tries = True
         if tries == True:
-            fileToWriteTo = open(f"{User.lastName}_{User.firstName}.txt","w")
-            fileToWriteTo.close
             k += 3
-            return True
+            return True, user
         if tries == False:
             print("Incorrect")
             k += 1
@@ -58,7 +59,7 @@ def login():
         return False
 
 
-#register
+#register - Jonah
 def register():
     check = False
     #While check is false loop
@@ -75,7 +76,9 @@ def register():
             file1 = open("reg.txt","a")
             file1.write(f"{aNewUsername},{aNewPass},{aNewFirst},{aNewLast}\n")
             file1.close()
-            aNewUser = User(aNewFirst,aNewLast,aNewUsername,aNewPass)
+            aNewUser = User(aNewFirst, aNewLast, aNewUsername, aNewPass)
+            fileToWriteTo = open(f"{aNewUser.username}.txt","w") 
+            fileToWriteTo.close
             check = True
             #elif false ask user to try again
         elif passCheck == False:
@@ -88,21 +91,46 @@ def register():
   4. contains capitals
   ''')
 
-
-def addAccount():
-    newAccount = Account(input("What do you want to call this account? "),
+# adds account to the account list for each user - Jonah
+def addAccount(accountUser):
+    newAccount = Account(input("Category: "), input("What do you want to call this account? "),
                          input("Username: "),
-                         input("Password: "),
-                         input("Category: "))
+                         input("Password: "))
+    # adds the account to a list so it is able to be printed
     masterAccountList.append(newAccount)
+    # addes the account to the users txt file
+    for accounts in masterAccountList:
+        fileToWriteTo = open(f"{accountUser}.txt","a")
+        fileToWriteTo.write(accounts.__str__()) 
+        fileToWriteTo.close
+    masterAccountList.pop()
+
+# random password generator - Sam
+def passw():
+#get ascii and length
+    lowerLetter = string.ascii_lowercase
+    upperLetter = string.ascii_uppercase
+    numbers = string.digits
+    symbolsCase = string.punctuation
+    length = 8
+    #add all together
+    all = lowerLetter + upperLetter + numbers+ symbolsCase
+    to = random.sample(all,length)
+    thePassword = "".join(to)
+    print(thePassword)
+
+# I couldn't figure it out how to edit a text file in order to change the output - Jonah
+# def editAccount(accountUser):
+#     f = open(f'{accountUser}.txt', 'r')
+#     file_contents = f.read()
+#     print(file_contents)
+#     f.close()
+# 
 
 
 
 
-
-
-
-# running code
+# running code - Jonah and Sam
 while ui != "3":
     print('''
            ::PASSWORD MANAGER::
@@ -114,32 +142,34 @@ while ui != "3":
           ''')
     ui = input("What would you like to do? ")
     if ui == "1":
-        userInput = login()
+        userInput, accountUser = login()
         while userInput == True:
             print(f'''
 --------------Password Manager--------------
 1. Add Account
 2. Account List
-3. Edit/Delete Account
-4. Exit
+3. Edit/Delete Accounts (not avalible at this time :) )
+4. Password Generator
+5. Exit
 --------------------------------------------
 ''')
             choice = input("What would you like to do? ")
             if choice == "1":
-                addAccount()
+                addAccount(accountUser)
             elif choice == "2":
-                for i in masterAccountList:
-                    print(i)
+                f = open(f'{accountUser}.txt', 'r')
+                file_contents = f.read()
+                print(file_contents)
+                f.close()
             elif choice == "3":
-                editAccount()
+                print("no :) ")
+                # editAccount(accountUser)
             elif choice == "4":
+                passw()
+            elif choice == "5":
                 userInput = False
         if userInput == False:
             ui = "3"
     elif ui == "2":
         register()
         ui = "0"
-    
-
-
-
