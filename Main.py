@@ -155,12 +155,22 @@ def passw():
     return thePassword
 
 # I couldn't figure it out how to edit a text file in order to change the output - Jonah
-# def editAccount(accountUser):
-#     f = open(f'{accountUser}.txt', 'r')
-#     file_contents = f.read()
-#     print(file_contents)
-#     f.close()
-# 
+def editAccount(accountUser):
+    # open the text file to see everything and to show the user what they can change
+    f = open(f'{accountUser}.txt', 'r')
+    file_contents = f.read()
+    print(file_contents)
+    f.close()
+    # ask the user what line to change and what to change it to
+    choice = input("Which line would you like to change? ")
+    newOption = input("What would you like to change it to? ")
+    #open the file
+    file1 = open(f"{accountUser}.txt","a")
+    # find the line the user wants to change
+    file1.seek(int(choice))
+    # change the line to what the user wants
+    file1.write(newOption)
+     
 
 #couldn't figure out - Sam
         #which post to edit
@@ -207,13 +217,7 @@ while ui != "3":
                 f.close()
             elif choice == "3":
                 #try edit did not work - Sam
-                # with open("reg.txt", "r") as file:
-                #     old=file.read()
-                #     file.seek(user=input("Enter your user name: "))
-                #     file.write(register())
-                #     file.close()
-                print("no :) ")
-                # editAccount(accountUser)
+                editAccount(accountUser)
             elif choice == "4":
                 passw()
             elif choice == "5":
