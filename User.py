@@ -6,4 +6,4 @@ class User():
         self.password = password
         
     def __str__(self):
-        out = f"{firstName} {lastName}"
+        out = f"{self.firstName} {self.lastName}"

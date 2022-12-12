@@ -3,6 +3,8 @@ from Account import Account
 from User import User
 import string
 import random
+from cryptography.fernet import Fernet
+
 
 
 # functions and variables
@@ -39,7 +41,22 @@ def login():
     while tries == False and k < 3:
         user = input("Username: " )
         passw = input("Password: ")
-#read reg.txt file
+# #read reg.txt file
+#         key = ""
+#         file2 = open("topSecret.key","rb")
+#         key = file2.read()
+#         encrypteddata = ""
+#         file2 = open("secretInfo.txt","rb")
+#         encrypteddata = file2.read()
+#         f = Fernet(key)
+#         decryptedData = f.decrypt(encrypteddata)
+        
+#         print("Encrypted Data: ", encrypteddata.decode())
+#         print("")
+#         dta = (decryptedData.decode())
+#         print(dta)
+
+        #read reg.txt file
         file1 = open("reg.txt","r")
         file1 = file1.readlines()
 #for line in file rstrip and split it with , 
@@ -79,6 +96,16 @@ def register():
             aNewUser = User(aNewFirst, aNewLast, aNewUsername, aNewPass)
             fileToWriteTo = open(f"{aNewUser.username}.txt","w") 
             fileToWriteTo.close
+            # key = ""
+            # file2 = open("topSecret.key","rb")
+            # key = file2.read()
+            # data = ""
+            # file2 = open("reg.txt","rb")
+            # data = file2.read()
+            # f = Fernet(key)
+            # encryptedData = f.encrypt(data)
+            # file3 = open("secretInfo.txt", "wb")
+            # file3.write(encryptedData)
             check = True
             #elif false ask user to try again
         elif passCheck == False:
@@ -93,9 +120,16 @@ def register():
 
 # adds account to the account list for each user - Jonah
 def addAccount(accountUser):
-    newAccount = Account(input("Category: "), input("What do you want to call this account? "),
+    choice = input("Would you like a random generated password? (y/n)")
+    if choice == "y":
+        pas = passw()
+        newAccount = Account(input("Category: "), input("What do you want to call this account? "),
                          input("Username: "),
-                         input("Password: "))
+                         pas)
+    if choice == "n":
+        newAccount = Account(input("Category: "), input("What do you want to call this account? "),
+                             input("Username: "),
+                             input("Password: "))
     # adds the account to a list so it is able to be printed
     masterAccountList.append(newAccount)
     # addes the account to the users txt file
@@ -118,6 +152,7 @@ def passw():
     to = random.sample(all,length)
     thePassword = "".join(to)
     print(thePassword)
+    return thePassword
 
 # I couldn't figure it out how to edit a text file in order to change the output - Jonah
 # def editAccount(accountUser):
@@ -127,6 +162,15 @@ def passw():
 #     f.close()
 # 
 
+#couldn't figure out - Sam
+        #which post to edit
+        # idToEdit=int(input("Which item needs to be editted? "))
+        # if(aNewUsername==masterUserList[idToEdit].get_user_name()):
+        #     #obtain the new message
+        #     newMessage = input("What is the new message? ")
+        #     #set the new message
+        #     masterUserList[int(idToEdit)].set_message(newMessage)
+        
 
 
 
@@ -162,6 +206,12 @@ while ui != "3":
                 print(file_contents)
                 f.close()
             elif choice == "3":
+                #try edit did not work - Sam
+                # with open("reg.txt", "r") as file:
+                #     old=file.read()
+                #     file.seek(user=input("Enter your user name: "))
+                #     file.write(register())
+                #     file.close()
                 print("no :) ")
                 # editAccount(accountUser)
             elif choice == "4":

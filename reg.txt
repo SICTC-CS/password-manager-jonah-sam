@@ -1,4 +1,2 @@
-jonahzoller,Zoller-789,Jonah,Zoller
-mike,mikeH-789,mike,hawk
-jonah9O,jonah-9O,jon,ah
-mikeus,Hawkus-0,Mike,Hawk
+jonahzoller,Zoller-789,jonahzoller,Zol
+Jack,Jack-129,Ka,ka
